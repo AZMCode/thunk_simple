@@ -1,5 +1,6 @@
 [package]
 name = "thunk_simple"
+description = "Simple alternative to the `thunk` crate's lazy evaluation types"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
