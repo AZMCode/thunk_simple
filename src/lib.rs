@@ -3,10 +3,6 @@
 /// The `Thunk<T>` type.
 /// This type is not evaluated until the `unwrap` method is called.
 /// The inner value cannot be referenced until it's unwrapped.
-/// 
-/// ## Panics
-/// If the Thunk was created `from` an Iterator, the Thunk may panic if the Iterator yields less than one element.
-/// Otherwise only panics when any function involved in calculating the value panics.
 pub struct Thunk<'f,T>(Box<dyn (FnOnce()-> T) + 'f>) where T: 'f;
 
 impl<'f,T> Thunk<'f,T> where T:'f {
@@ -40,6 +36,10 @@ impl<'f,T> Thunk<'f,T> where T:'f {
     }
 
     /// Unwrap, and therefore calculate, the value `T` contained inside this thunk
+    /// 
+    /// ## Panics
+    /// If the Thunk was created `from` an Iterator, the Thunk may panic if the Iterator yields less than one element.
+    /// Otherwise only panics when any function involved in calculating the value panics.
     pub fn unwrap(self) -> T {
         (self.0)()
     }
